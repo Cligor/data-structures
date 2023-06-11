@@ -12,7 +12,6 @@ class BinarySearchTree {
         Node* root;
 
         Node* search(Node* node, int value) {
-            std::cout << std::endl << node->value << std::endl;
             if (value > node->value) {
                 return search(node->right, value);
             } else if (value < node->value) {
@@ -48,26 +47,26 @@ class BinarySearchTree {
 
             if (root == NULL) {
                 root = temp;
-            } else {
-                Node *current = this->root;
-                Node *parent = NULL;
+                return true;
+            } 
+            Node *current = this->root;
+            Node *parent = NULL;
 
-                while(true) {
-                    parent = current;
-                    if (value < parent->value) {
-                        current = current->left;
+            while(true) {
+                parent = current;
+                if (value < parent->value) {
+                    current = current->left;
 
-                        if (current == NULL) {
-                            parent->left = temp;
-                            return true;
-                        }
-                    } else {
-                        current = current->right;
+                    if (current == NULL) {
+                        parent->left = temp;
+                        return true;
+                    }
+                } else {
+                    current = current->right;
 
-                        if (current == NULL) {
-                            parent->right = temp;
-                            return true;
-                        }
+                    if (current == NULL) {
+                        parent->right = temp;
+                        return true;
                     }
                 }
             }
