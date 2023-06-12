@@ -18,7 +18,7 @@ class HashTable {
 
     public:
         HashTable() {
-            this->length = 10000;
+            this->length = 10;
             this->table = new int[this->length];
         }
 
@@ -45,11 +45,11 @@ class HashTable {
 
 int main() {
     HashTable* dict = new HashTable();\
-    cout << dict->getValue("engily") << endl;
-    dict->insert("engily", 20);
-    cout << dict->getValue("engily") << endl;
-    dict->remove("engily");
-    cout << dict->getValue("engily") << endl;
+    cout << dict->getValue("teste") << endl;
+    dict->insert("teste", 20);
+    cout << dict->getValue("teste") << endl;
+    dict->remove("teste");
+    cout << dict->getValue("teste") << endl;
     return 0;
 }
 
