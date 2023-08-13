@@ -1,93 +1,90 @@
 #include <iostream>
+using namespace std;
 
-class Stack {
+class MinHeap {
     private:
-        int* arr;
-        int length;
-        int head;
+        int* heap;
+        int size;
         int tail;
+        int head;
 
-        bool exceededCapacity() {
-            return this->tail == (this->length - 1);
-        }
+        void heapify(int insertionIndex) {
+            if (insertionIndex <= this->head) return;
 
-        void resetStack() {
-            this->head      = -1;
-            this->tail      = -1;
-        }
+            int parentIndex = (insertionIndex)/2;
 
-    public: 
-        Stack(int length) {
-            this->arr       = new int[length];
-            this->length    = length;
-            resetStack();
-        }
-
-        void push(int num) {
-            if (exceededCapacity()) {
-                throw "Stack Overflow";
-            } else {
-                if (isEmpty()) this->head = 0;
-                this->arr[++this->tail] = num;
+            if (this->heap[insertionIndex] < this->heap[parentIndex]) {
+                int aux = this->heap[parentIndex];
+                this->heap[parentIndex] = this->heap[insertionIndex];
+                this->heap[insertionIndex] = aux;
             }
+
+            this->heapify(parentIndex);
+        }
+
+    public:
+        MinHeap(int size) {
+            this->size = size;
+            this->tail = -1;
+            this->head = -1;
+            this->heap = new int[size];
+        }
+
+        void add(int value) {
+            if (++tail >= size) {
+                cout << "Index Out of Bounds" << endl;
+            }
+
+            this->heap[this->tail] = value;
+            
+            if (this->head == -1) this->head++;
+
+            this->heapify(this->tail);
+        }
+
+        int get(int i) {
+            if (i > tail || i < 0) cout << "Index Out of Bounds" << endl;
+            return this->heap[i];
+        }
+
+        void print() {
+            cout << "|";
+            for(int i = 0; i <= this->tail; i++) {
+                cout << this->heap[i] << "|";
+            }
+
+            cout << endl;
         }
 
         int pop() {
-            if (isEmpty()) {
-                throw "Stack is empty";
-            } else {
-                int value = this->arr[this->tail];
-                this->arr[this->tail] = 0;
-                this->tail--;
-
-                if (this->head == this->length) {
-                    resetStack();
-                }
-
-                return value;
-            }
-        }
-
-        bool isEmpty() {
-            return this->tail == -1;
+            // this->tail--;
+            int value = this->heap[0];
+            
+            this->heap[0] = this->heap[tail];
+            
+            this->heapify(--this->tail);
+            return value;
         }
 };
 
 int main() {
-    Stack* stack = new Stack(5);
-    try {
-        std::cout << "pop: " << stack->pop() << std::endl;
-    } catch (const char* msg) {
-        std::cout << msg << std::endl;
-    }
+    MinHeap* heap = new MinHeap(4);
+    heap->add(4);
+    heap->add(5);
+    heap->print();
+    heap->add(2);
+    heap->print();
+    heap->add(1);
+    heap->print();
+    heap->pop();
+    heap->print();
+    heap->pop();
+    heap->print();
+    heap->add(4);
+    heap->add(1);
+    heap->print();
+    heap->pop();
+    heap->print();
     
-
-    stack->push(1);
-    stack->push(2);
-    stack->push(3);
-    stack->push(4);
-    stack->push(5);
-
-    std::cout << "pop: " << stack->pop() << std::endl;
-    std::cout << "pop: " << stack->pop() << std::endl;
-    std::cout << "pop: " << stack->pop() << std::endl;
-
-    try {
-        stack->push(6);
-    } catch(const char* msg) {
-        std::cout << msg << std::endl;
-    }
-    std::cout << "pop: " << stack->pop() << std::endl;
-
-    
-    std::cout << "pop: " << stack->pop() << std::endl;
-    stack->push(7);
-
-    std::cout << "pop: " << stack->pop() << std::endl;
-    std::cout << "pop: " << stack->pop() << std::endl;
-    try {
-        std::cout << "pop: " << stack->pop() << std::endl;
-    } catch(const char* msg) {
-        std::cout << msg << std::endl;
-    }
+    return 0;
 }

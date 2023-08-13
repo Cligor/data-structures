@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 // para casos de arrays já ordenados ele executa uma complexidade O(n)
