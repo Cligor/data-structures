@@ -7,6 +7,7 @@ int* optimizedBubbleSort(int array[], int n) {
     for (int i = 0; i < n-1 && hasSwap; i++) {
         hasSwap = false;
         for (int j = 0; j < n-1; j++) {
+            cout << "entrou" << endl;
             if (array[j] > array[j+1]) {
                 int aux = array[j];
                 array[j] = array[j+1];
@@ -21,6 +22,7 @@ int* optimizedBubbleSort(int array[], int n) {
 int* bubbleSort(int array[], int n) {
     for (int i = 0; i < n-1; i++) {
         for (int j = 0; j < n-1; j++) {
+            cout << "entrou" << endl;
             if (array[j] > array[j+1]) {
                 int aux = array[j];
                 array[j] = array[j+1];
@@ -32,13 +34,13 @@ int* bubbleSort(int array[], int n) {
 }
 
 int main() {
-    int n = 5;
-    int array[n] = {5,9,2,7,1};
-    int* orderedArray = optimizedBubbleSort(array, n);
+    int n = 7;
+    int array[n] = {90,80,70,40,30,20,10};;
+    int* orderedArray = bubbleSort(array, n);
     
     cout << "|";
-    for(int i = 0; i < 5; i++) {
-        cout << array[i] << "|";
+    for(int i = 0; i < 7; i++) {
+        cout << orderedArray[i] << "|";
     }
 
     cout << endl;
